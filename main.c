@@ -60,16 +60,26 @@ void agregarUsuario(char nombreArchivo[]);
 void mostrarUsuario(char nombreArchivo[]);
 int login(char nombreArchivo[]);
 void loginCheck(int estado);
+int validarCredenciales(char usuario[], char clave[], int longMax);
 
 int main()
 {
+    agregarUsuario("corto1.bin");
+    mostrarUsuario("corto1.bin");
+    loginCheck(login("corto1.bin"));
     return 0;
 }
 
-void agregarUsuario(char nombreArchivo[]) { // Agrega usuarios a un archivo o lo crea de no existir
+// Agrega usuarios a un archivo o lo crea de no existir
+
+void agregarUsuario(char nombreArchivo[]) {
     FILE *usuarios;
     usuarios = fopen(nombreArchivo,"ab");
     Usuario usuario;
+
+    char nombre[LONG_MAX_LOGIN];
+    char clave[LONG_MAX_LOGIN];
+
     char continuar = 's';
 
     if (usuarios == NULL) {
@@ -80,12 +90,25 @@ void agregarUsuario(char nombreArchivo[]) { // Agrega usuarios a un archivo o lo
     while(continuar == 's') {
         printf("Ingrese un usuario: ");
         fflush(stdin);
-        scanf("%s",&usuario.nombre);
+        scanf("%s",nombre);
+
         printf("Ingrese una clave: ");
         fflush(stdin);
-        scanf("%s",&usuario.clave);
+        scanf("%s",clave);
 
-        fwrite(&usuario,sizeof(Usuario),1,usuarios);
+        if (validarCredenciales(nombre,clave,LONG_MAX_LOGIN) == 0) {
+            printf("Credenciales invalidas, reintente nuevamente\n");
+        }
+
+        if (validarCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
+            printf("El usuario es: %s\n",nombre);
+            printf("La clave es: %s\n",clave);
+
+            strcpy(usuario.nombre,nombre);
+            strcpy(usuario.clave,clave);
+
+            fwrite(&usuario,sizeof(Usuario),1,usuarios);
+        }
 
         printf("Desea agregar mas usuarios? ('s' para continuar): ");
         fflush(stdin);
@@ -150,4 +173,11 @@ int login(char nombreArchivo[]) { // Lee archivo de usuarios y retorna 0 si fall
 void loginCheck(int estado) { // Funcion de prueba, chequea si el login fue exitoso o no
     if (estado == 1) printf("esta logueado");
     if (estado == 0) printf("no esta logueado");
+}
+
+int validarCredenciales(char usuario[], char clave[], int longMax) {
+    if (strlen(usuario) >= longMax || strlen(clave) >= longMax) {
+        return 0;
+    }
+    return 1;
 }
