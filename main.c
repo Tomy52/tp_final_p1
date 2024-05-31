@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LONG_MAX_LOGIN 30
+
 typedef struct {
-char nombre[30];
-char clave[30];
+char nombre[LONG_MAX_LOGIN];
+char clave[LONG_MAX_LOGIN];
 } Usuario;
 
 typedef struct {
@@ -117,8 +119,8 @@ int login(char nombreArchivo[]) { // Lee archivo de usuarios y retorna 0 si fall
     usuarios = fopen(nombreArchivo,"rb");
 
     Usuario usuario;
-    char nombreEnviado[30];
-    char claveEnviada[30];
+    char nombreEnviado[LONG_MAX_LOGIN];
+    char claveEnviada[LONG_MAX_LOGIN];
     int logueado = 0;
 
     if (usuarios == NULL) {
