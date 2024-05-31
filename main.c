@@ -70,7 +70,10 @@ void agregarUsuario(char nombreArchivo[]) { // Agrega usuarios a un archivo o lo
     Usuario usuario;
     char continuar = 's';
 
-    if (usuarios == NULL) return;
+    if (usuarios == NULL) {
+        printf("Archivo invalido");
+        return;
+    }
 
     while(continuar == 's') {
         printf("Ingrese un usuario: ");
@@ -96,7 +99,10 @@ void mostrarUsuario(char nombreArchivo[]) { // Funcion de prueba, muestra los us
 
     Usuario usuario;
 
-    if (usuarios == NULL) return;
+    if (usuarios == NULL) {
+        printf("Archivo invalido");
+        return;
+    }
 
     while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0) {
         printf("Nombre: %s\n",usuario.nombre);
@@ -115,7 +121,10 @@ int login(char nombreArchivo[]) { // Lee archivo de usuarios y retorna 0 si fall
     char claveEnviada[30];
     int logueado = 0;
 
-    if (usuarios == NULL) return 0;
+    if (usuarios == NULL) {
+        printf("Archivo invalido");
+        return 0;
+    }
 
     printf("Ingrese un usuario: ");
     scanf("%s",&nombreEnviado);
