@@ -173,8 +173,11 @@ void loginCheck(int estado) { // Funcion de prueba, chequea si el login fue exit
 }
 
 int validarLongitudCredenciales(char usuario[], char clave[], int longMax) {
+    int flag = 1;
+
     if (strlen(usuario) >= longMax || strlen(clave) >= longMax) {
-        return 0;
+        flag = 0;
     }
-    return 1;
+
+    return flag;
 }
