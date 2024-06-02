@@ -60,7 +60,7 @@ void agregarUsuario(char nombreArchivo[]);
 void mostrarUsuario(char nombreArchivo[]);
 int login(char nombreArchivo[]);
 void loginCheck(int estado);
-int validarCredenciales(char usuario[], char clave[], int longMax);
+int validarLongitudCredenciales(char usuario[], char clave[], int longMax);
 
 int main()
 {
@@ -96,11 +96,11 @@ void agregarUsuario(char nombreArchivo[]) {
         fflush(stdin);
         scanf("%s",clave);
 
-        if (validarCredenciales(nombre,clave,LONG_MAX_LOGIN) == 0) {
+        if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 0) {
             printf("Credenciales invalidas, reintente nuevamente\n");
         }
 
-        if (validarCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
+        if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
             printf("El usuario es: %s\n",nombre);
             printf("La clave es: %s\n",clave);
 
@@ -175,7 +175,7 @@ void loginCheck(int estado) { // Funcion de prueba, chequea si el login fue exit
     if (estado == 0) printf("no esta logueado");
 }
 
-int validarCredenciales(char usuario[], char clave[], int longMax) {
+int validarLongitudCredenciales(char usuario[], char clave[], int longMax) {
     if (strlen(usuario) >= longMax || strlen(clave) >= longMax) {
         return 0;
     }
