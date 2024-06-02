@@ -101,9 +101,6 @@ void agregarUsuario(char nombreArchivo[]) {
         }
 
         if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
-            printf("El usuario es: %s\n",nombre);
-            printf("La clave es: %s\n",clave);
-
             strcpy(usuario.nombre,nombre);
             strcpy(usuario.clave,clave);
 
