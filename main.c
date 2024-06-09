@@ -96,7 +96,7 @@ void agregarUsuario(char nombreArchivo[]) {
     scanf("%s",clave);
 
     if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 0) {
-        printf("Credenciales invalidas, reintente nuevamente\n");
+        printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
     }
 
     if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 1) {
