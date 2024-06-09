@@ -80,36 +80,28 @@ void agregarUsuario(char nombreArchivo[]) {
     char nombre[LONG_MAX_LOGIN];
     char clave[LONG_MAX_LOGIN];
 
-    char continuar = 's';
-
     if (usuarios == NULL) {
         printf("Archivo invalido");
         return;
     }
 
-    while(continuar == 's') {
-        printf("Ingrese un usuario: ");
-        fflush(stdin);
-        scanf("%s",nombre);
+    printf("Ingrese un usuario: ");
+    fflush(stdin);
+    scanf("%s",nombre);
 
-        printf("Ingrese una clave: ");
-        fflush(stdin);
-        scanf("%s",clave);
+    printf("Ingrese una clave: ");
+    fflush(stdin);
+    scanf("%s",clave);
 
-        if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 0) {
-            printf("Credenciales invalidas, reintente nuevamente\n");
-        }
+    if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 0) {
+        printf("Credenciales invalidas, reintente nuevamente\n");
+    }
 
-        if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
-            strcpy(usuario.nombre,nombre);
-            strcpy(usuario.clave,clave);
+    if (validarLongitudCredenciales(nombre,clave,LONG_MAX_LOGIN) == 1) {
+        strcpy(usuario.nombre,nombre);
+        strcpy(usuario.clave,clave);
 
-            fwrite(&usuario,sizeof(Usuario),1,usuarios);
-        }
-
-        printf("Desea agregar mas usuarios? ('s' para continuar): ");
-        fflush(stdin);
-        scanf("%c",&continuar);
+        fwrite(&usuario,sizeof(Usuario),1,usuarios);
     }
 
     fclose(usuarios);
