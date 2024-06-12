@@ -66,9 +66,6 @@ int validarCredenciales(char usuario[], char clave[], int longMax, char nombreAr
 
 int main()
 {
-    agregarUsuario("corto1.bin");
-    mostrarUsuario("corto1.bin");
-    loginCheck(login("corto1.bin"));
     return 0;
 }
 
