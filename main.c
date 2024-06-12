@@ -82,29 +82,34 @@ void agregarUsuario(char nombreArchivo[]) {
     char nombre[LONG_MAX_LOGIN];
     char clave[LONG_MAX_LOGIN];
 
-    if (usuarios == NULL) {
+    if (usuarios != NULL)
+    {
+        printf("Ingrese un usuario: ");
+        fflush(stdin);
+        scanf("%s",nombre);
+
+        printf("Ingrese una clave: ");
+        fflush(stdin);
+        scanf("%s",clave);
+
+        if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 0)
+        {
+            printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
+        }
+
+        if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 1)
+        {
+            strcpy(usuario.nombre,nombre);
+            strcpy(usuario.clave,clave);
+
+            fwrite(&usuario,sizeof(Usuario),1,usuarios);
+        }
+
+    } else {
         printf("Archivo invalido");
-        return;
-    }
+     }
 
-    printf("Ingrese un usuario: ");
-    fflush(stdin);
-    scanf("%s",nombre);
 
-    printf("Ingrese una clave: ");
-    fflush(stdin);
-    scanf("%s",clave);
-
-    if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 0) {
-        printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
-    }
-
-    if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 1) {
-        strcpy(usuario.nombre,nombre);
-        strcpy(usuario.clave,clave);
-
-        fwrite(&usuario,sizeof(Usuario),1,usuarios);
-    }
 
     fclose(usuarios);
 }
@@ -115,14 +120,17 @@ void mostrarUsuario(char nombreArchivo[]) { // Funcion de prueba, muestra los us
 
     Usuario usuario;
 
-    if (usuarios == NULL) {
-        printf("Archivo invalido");
-        return;
+    if (usuarios != NULL)
+    {
+        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0)
+        {
+            printf("Nombre: %s\n",usuario.nombre);
+            printf("Clave: %s\n\n",usuario.clave);
+        }
     }
-
-    while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0) {
-        printf("Nombre: %s\n",usuario.nombre);
-        printf("Clave: %s\n\n",usuario.clave);
+    else
+    {
+        printf("Archivo invalido");
     }
 
     fclose(usuarios);
@@ -137,21 +145,25 @@ int login(char nombreArchivo[]) { // Lee archivo de usuarios y retorna 0 si fall
     char claveEnviada[LONG_MAX_LOGIN];
     int logueado = 0;
 
-    if (usuarios == NULL) {
-        printf("Archivo invalido");
-        return 0;
-    }
+    if (usuarios != NULL)
+    {
+        printf("Ingrese un usuario: ");
+        scanf("%s",&nombreEnviado);
+        printf("Ingrese una clave: ");
+        scanf("%s",&claveEnviada);
 
-    printf("Ingrese un usuario: ");
-    scanf("%s",&nombreEnviado);
-    printf("Ingrese una clave: ");
-    scanf("%s",&claveEnviada);
-
-    while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && logueado == 0) {
-        if (strcmp(nombreEnviado,usuario.nombre) == 0 && strcmp(claveEnviada,usuario.clave) == 0) {
-            printf("Bienvenido %s\n",usuario.nombre);
-            logueado = 1;
+        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && logueado == 0)
+        {
+            if (strcmp(nombreEnviado,usuario.nombre) == 0 && strcmp(claveEnviada,usuario.clave) == 0)
+            {
+                printf("Bienvenido %s\n",usuario.nombre);
+                logueado = 1;
+            }
         }
+    }
+    else
+    {
+        printf("Archivo invalido");
     }
 
     if (logueado == 0) printf("No se encontro el usuario / clave incorrecta\n");
@@ -182,16 +194,19 @@ int validarExistenciaUsuario(char nombreArchivo[], char nombreUsuario[]) {
     usuarios = fopen(nombreArchivo,"rb");
 
     Usuario usuario;
-
-    if (usuarios == NULL) {
-        printf("Archivo invalido");
-        return flag;
-    }
-
-    while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && flag == 0) {
-        if (strcmp(usuario.nombre,nombreUsuario) == 0) {
-            flag = 1;
+    if (usuarios != NULL)
+    {
+        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && flag == 0)
+        {
+            if (strcmp(usuario.nombre,nombreUsuario) == 0)
+            {
+                flag = 1;
+            }
         }
+    }
+    else
+    {
+        printf("Archivo invalido");
     }
 
     fclose(usuarios);
