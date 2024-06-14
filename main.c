@@ -65,8 +65,51 @@ int validarLongitudCredenciales(char usuario[], char clave[], int longMax);
 int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
 
+
+int logueado = 0;
+
 int main() {
+    menuUsuario();
     return 0;
+}
+
+void menuUsuario() {
+    FILE *usuarios = fopen("usuarios.bin", "ab+");
+    if (usuarios != NULL)
+    {
+        int opcion = 0;
+
+        printf("Bienvenido! Elija alguna opcion antes de continuar:\n");
+
+        while(opcion != 3 && logueado == 0)
+        {
+            printf("1. Agregar usuario\n");
+            printf("2. Iniciar sesion\n");
+            printf("3. Salir\n");
+            printf("Opcion elegida: ");
+            scanf("%d", &opcion);
+
+            switch(opcion)
+            {
+            case 1:
+                agregarUsuario(usuarios);
+                break;
+            case 2:
+                logueado = login(usuarios);
+                break;
+            case 3:
+                break;
+            default:
+                printf("Elija una opcion valida\n");
+                break;
+            }
+        }
+        fclose(usuarios);
+    }
+    else
+    {
+        printf("Archivo invalido");
+    }
 }
 
 void agregarUsuario(FILE *usuarios) {
