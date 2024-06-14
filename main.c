@@ -64,6 +64,8 @@ void loginCheck(int estado);
 int validarLongitudCredenciales(char usuario[], char clave[], int longMax);
 int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
+Patente cargarPatente();
+void verPatente(Patente patente);
 
 
 int logueado = 0;
@@ -225,6 +227,33 @@ int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuario
     }
 
     return flag;
+}
+
+Patente cargarPatente() {
+    Patente patente;
+    char patenteString[6];
+
+    printf("Patente: ");
+    scanf("%6s", patenteString);
+
+    for (int i = 0; i < 3; i++) {
+        patente.letras[i] = patenteString[i];
+    }
+
+    for (int i = 0; i < 3; i++) {
+        if (isdigit(patenteString[i + 3]) != 0) {
+            patente.numeros[i] = patenteString[i + 3];
+        } else {
+            printf("Ojo, el caracter %c no es un numero!\n",patenteString[i + 3]);
+            patente.numeros[i] = 'X';
+        }
+    }
+
+    return patente;
+}
+
+void verPatente(Patente patente) {
+    printf("Patente: %s\n",patente.letras,patente.numeros);
 }
 
 
