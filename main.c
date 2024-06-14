@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LONG_MAX_LOGIN 4
+#define LONG_MAX_LOGIN 30
 
 typedef struct {
 char nombre[LONG_MAX_LOGIN];
