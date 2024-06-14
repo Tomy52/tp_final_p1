@@ -56,121 +56,89 @@ int dniComprador;
 int dniVendedor;
 } Venta;
 
-void agregarUsuario(char nombreArchivo[]);
-void mostrarUsuario(char nombreArchivo[]);
-int login(char nombreArchivo[]);
+void menuUsuario();
+void agregarUsuario(FILE *usuarios);
+void mostrarUsuario(FILE *usuarios);
+int login(FILE *usuarios);
 void loginCheck(int estado);
 int validarLongitudCredenciales(char usuario[], char clave[], int longMax);
-int validarExistenciaUsuario(char nombreArchivo[], char nombreUsuario[]);
-int validarCredenciales(char usuario[], char clave[], int longMax, char nombreArchivo[]);
+int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
+int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
 
-int main()
-{
+int main() {
     return 0;
 }
 
-// Agrega usuarios a un archivo o lo crea de no existir
-
-void agregarUsuario(char nombreArchivo[]) {
-    FILE *usuarios;
-    usuarios = fopen(nombreArchivo,"ab");
+void agregarUsuario(FILE *usuarios) {
     Usuario usuario;
-    int credencialesValidas = 0;
+    int credencialesValidas;
 
     char nombre[LONG_MAX_LOGIN];
     char clave[LONG_MAX_LOGIN];
 
-    if (usuarios != NULL)
+    printf("Ingrese un usuario: ");
+    fflush(stdin);
+    scanf("%s", nombre);
+
+    printf("Ingrese una clave: ");
+    fflush(stdin);
+    scanf("%s", clave);
+
+    credencialesValidas = validarCredenciales(nombre, clave, LONG_MAX_LOGIN, usuarios);
+
+    if (credencialesValidas == 0)
     {
-        printf("Ingrese un usuario: ");
-        fflush(stdin);
-        scanf("%s",nombre);
-
-        printf("Ingrese una clave: ");
-        fflush(stdin);
-        scanf("%s",clave);
-
-        credencialesValidas = validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo);
-
-        if (credencialesValidas == 0)
-        {
-            printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
-        }
-
-        if (credencialesValidas == 1)
-        {
-            strcpy(usuario.nombre,nombre);
-            strcpy(usuario.clave,clave);
-
-            fwrite(&usuario,sizeof(Usuario),1,usuarios);
-        }
-
-    } else {
-        printf("Archivo invalido");
+        printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
     }
 
+    if (credencialesValidas == 1)
+    {
+        fseek(usuarios,0,SEEK_END);
+        strcpy(usuario.nombre, nombre);
+        strcpy(usuario.clave, clave);
 
+        fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+    }
 
-    fclose(usuarios);
 }
 
-void mostrarUsuario(char nombreArchivo[]) { // Funcion de prueba, muestra los usuarios cargados en un archivo dado
-    FILE *usuarios;
-    usuarios = fopen(nombreArchivo,"rb");
-
+void mostrarUsuario(FILE *usuarios) { // Funcion de prueba, muestra los usuarios cargados en un archivo dado
     Usuario usuario;
 
-    if (usuarios != NULL)
-    {
-        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0)
-        {
-            printf("Nombre: %s\n",usuario.nombre);
-            printf("Clave: %s\n\n",usuario.clave);
-        }
-    }
-    else
-    {
-        printf("Archivo invalido");
+    fseek(usuarios,0,SEEK_SET);
+
+    while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0) {
+        printf("Nombre: %s\n", usuario.nombre);
+        printf("Clave: %s\n\n", usuario.clave);
     }
 
-    fclose(usuarios);
 }
 
-int login(char nombreArchivo[]) { // Lee archivo de usuarios y retorna 0 si fallo o 1 si fue exitoso
-    FILE *usuarios;
-    usuarios = fopen(nombreArchivo,"rb");
-
+int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 si fue exitoso
     Usuario usuario;
     char nombreEnviado[LONG_MAX_LOGIN];
     char claveEnviada[LONG_MAX_LOGIN];
-    int logueado = 0;
 
-    if (usuarios != NULL)
-    {
-        printf("Ingrese un usuario: ");
-        scanf("%s",&nombreEnviado);
-        printf("Ingrese una clave: ");
-        scanf("%s",&claveEnviada);
+    int flag = 0;
 
-        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && logueado == 0)
-        {
-            if (strcmp(nombreEnviado,usuario.nombre) == 0 && strcmp(claveEnviada,usuario.clave) == 0)
-            {
-                printf("Bienvenido %s\n",usuario.nombre);
-                logueado = 1;
-            }
+    printf("Ingrese un usuario: ");
+    scanf("%s", &nombreEnviado);
+    printf("Ingrese una clave: ");
+    scanf("%s", &claveEnviada);
+
+    fseek(usuarios,0,SEEK_SET);
+
+    while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0 && flag == 0) {
+        if (strcmp(nombreEnviado, usuario.nombre) == 0 && strcmp(claveEnviada, usuario.clave) == 0) {
+            printf("Bienvenido %s\n", usuario.nombre);
+            flag = 1;
         }
     }
-    else
-    {
-        printf("Archivo invalido");
-    }
 
-    if (logueado == 0) printf("No se encontro el usuario / clave incorrecta\n");
 
-    fclose(usuarios);
+    if (flag == 0) printf("No se encontro el usuario / clave incorrecta\n");
 
-    return logueado;
+    return flag;
 }
 
 void loginCheck(int estado) { // Funcion de prueba, chequea si el login fue exitoso o no
@@ -188,38 +156,28 @@ int validarLongitudCredenciales(char usuario[], char clave[], int longMax) {
     return flag;
 }
 
-int validarExistenciaUsuario(char nombreArchivo[], char nombreUsuario[]) {
+int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]) {
     int flag = 0;
-    FILE *usuarios;
-    usuarios = fopen(nombreArchivo,"rb");
-
     Usuario usuario;
-    if (usuarios != NULL)
-    {
-        while (fread(&usuario,sizeof(Usuario),1,usuarios) != 0 && flag == 0)
-        {
-            if (strcmp(usuario.nombre,nombreUsuario) == 0)
-            {
-                flag = 1;
-            }
+
+    fseek(usuarios,0,SEEK_SET);
+
+    while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0 && flag == 0) {
+        if (strcmp(usuario.nombre, nombreUsuario) == 0) {
+            flag = 1;
         }
     }
-    else
-    {
-        printf("Archivo invalido");
-    }
 
-    fclose(usuarios);
     return flag;
 }
 
-int validarCredenciales(char usuario[], char clave[], int longMax, char nombreArchivo[]) {
+int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios) {
     int flag = 1;
 
     if (validarLongitudCredenciales(usuario,clave,longMax) == 0) {
         flag = 0;
     }
-    if (validarExistenciaUsuario(nombreArchivo, usuario) == 1) {
+    if (validarExistenciaUsuario(usuarios, usuario) == 1) {
         flag = 0;
     }
 
