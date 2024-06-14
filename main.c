@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LONG_MAX_LOGIN 30
+#define LONG_MAX_LOGIN 4
 
 typedef struct {
 char nombre[LONG_MAX_LOGIN];
@@ -75,6 +75,7 @@ void agregarUsuario(char nombreArchivo[]) {
     FILE *usuarios;
     usuarios = fopen(nombreArchivo,"ab");
     Usuario usuario;
+    int credencialesValidas = 0;
 
     char nombre[LONG_MAX_LOGIN];
     char clave[LONG_MAX_LOGIN];
@@ -89,12 +90,14 @@ void agregarUsuario(char nombreArchivo[]) {
         fflush(stdin);
         scanf("%s",clave);
 
-        if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 0)
+        credencialesValidas = validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo);
+
+        if (credencialesValidas == 0)
         {
             printf("Credenciales muy largas o repetidas, reintente nuevamente\n");
         }
 
-        if (validarCredenciales(nombre, clave, LONG_MAX_LOGIN, nombreArchivo) == 1)
+        if (credencialesValidas == 1)
         {
             strcpy(usuario.nombre,nombre);
             strcpy(usuario.clave,clave);
@@ -104,7 +107,7 @@ void agregarUsuario(char nombreArchivo[]) {
 
     } else {
         printf("Archivo invalido");
-     }
+    }
 
 
 
