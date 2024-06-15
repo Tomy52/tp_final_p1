@@ -68,6 +68,8 @@ Patente agregarPatente();
 void verPatente(Patente patente);
 Auto agregarAuto();
 void verAuto(Auto coche);
+Persona agregarPersona();
+void verPersona(Persona persona);
 
 int logueado = 0;
 
@@ -308,6 +310,40 @@ void verAuto(Auto coche) {
     }
 
     printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
+}
+
+Persona agregarPersona() {
+    Persona persona;
+
+    printf("DNI: ");
+    fflush(stdin);
+    scanf("%i",&persona.dni);
+
+    printf("Nombre: ");
+    fflush(stdin);
+    gets(persona.nombre);
+
+    printf("Telefono: ");
+    fflush(stdin);
+    scanf("%i",&persona.telefono);
+
+    printf("Direccion: ");
+    fflush(stdin);
+    gets(persona.direccion);
+
+    printf("Rol (comprador o vendedor): ");
+    fflush(stdin);
+    scanf("%s", persona.rol);
+
+    return persona;
+}
+
+void verPersona(Persona persona) {
+    printf("DNI: %i\n",persona.dni);
+    printf("Nombre: %s\n",persona.nombre);
+    printf("Telefono: %i\n",persona.telefono);
+    printf("Direccion: %s\n",persona.direccion);
+    printf("Rol: %s\n",persona.rol);
 }
 
 
