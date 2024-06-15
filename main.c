@@ -69,7 +69,7 @@ Patente agregarPatente();
 void verPatente(Patente patente);
 Auto agregarAuto();
 void verAuto(Auto coche);
-Persona agregarPersona();
+void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
 
 int logueado = 0;
@@ -143,7 +143,7 @@ void menuConcesionaria() {
                     agregarAuto();
                     break;
                 case 2:
-                    agregarPersona();
+                    agregarPersona(personas);
                     break;
                 default:
                     printf("Elija una opcion valida\n");
@@ -355,7 +355,7 @@ void verAuto(Auto coche) {
     printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
 }
 
-Persona agregarPersona() {
+void agregarPersona(FILE *personas) {
     Persona persona;
 
     printf("DNI: ");
@@ -378,7 +378,7 @@ Persona agregarPersona() {
     fflush(stdin);
     scanf("%s", persona.rol);
 
-    return persona;
+    fwrite(&persona,sizeof(Persona),1,personas);
 }
 
 void verPersona(Persona persona) {
@@ -388,5 +388,7 @@ void verPersona(Persona persona) {
     printf("Direccion: %s\n",persona.direccion);
     printf("Rol: %s\n",persona.rol);
 }
+
+
 
 
