@@ -232,20 +232,30 @@ int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuario
 Patente cargarPatente() {
     Patente patente;
     char patenteString[7];
+    int caracteresCorrectos = 0;
 
-    printf("Patente: ");
-    scanf("%6s", patenteString);
+    while (caracteresCorrectos != 6 ) {
+        printf("Patente: ");
+        fflush(stdin);
+        scanf("%6s", patenteString);
 
-    for (int i = 0; i < 3; i++) {
-        patente.letras[i] = patenteString[i];
-    }
+        for (int i = 0; i < 3; i++) {
+            if (isalpha(patenteString[i]) != 0) {
+                patente.letras[i] = patenteString[i];
+                caracteresCorrectos++;
+            }
+        }
 
-    for (int i = 0; i < 3; i++) {
-        if (isdigit(patenteString[i + 3]) != 0) {
-            patente.numeros[i] = patenteString[i + 3];
-        } else {
-            printf("Ojo, el caracter %c no es un numero!\n",patenteString[i + 3]);
-            patente.numeros[i] = 'X';
+        for (int i = 0; i < 3; i++) {
+            if (isdigit(patenteString[i + 3]) != 0) {
+                patente.numeros[i] = patenteString[i + 3];
+                caracteresCorrectos++;
+            }
+        }
+
+        if (caracteresCorrectos < 6) {
+            printf("La patente contiene errores, intente nuevamente\n");
+            caracteresCorrectos = 0;
         }
     }
 
@@ -253,7 +263,7 @@ Patente cargarPatente() {
 }
 
 void verPatente(Patente patente) {
-    printf("Patente: %s\n",patente.letras,patente.numeros);
+    printf("Patente: %s%s\n",patente.letras,patente.numeros);
 }
 
 
