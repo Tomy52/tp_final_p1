@@ -71,6 +71,7 @@ Auto agregarAuto();
 void verAuto(Auto coche);
 void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
+void verListadoPersonas(FILE *personas);
 
 int logueado = 0;
 
@@ -130,10 +131,12 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 30)
+        while(opcion != 4)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
+            printf("3. Ver listado resumido de personas\n");
+            printf("4. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -144,6 +147,11 @@ void menuConcesionaria() {
                     break;
                 case 2:
                     agregarPersona(personas);
+                    break;
+                case 3:
+                    verListadoPersonas(personas);
+                    break;
+                case 4:
                     break;
                 default:
                     printf("Elija una opcion valida\n");
@@ -389,6 +397,14 @@ void verPersona(Persona persona) {
     printf("Rol: %s\n",persona.rol);
 }
 
+void verListadoPersonas(FILE *personas) {
+    Persona persona;
 
+    fseek(personas,0,SEEK_SET);
+    while(fread(&persona,sizeof(Persona),1,personas) != 0) {
+        printf("\nDNI: %i\n",persona.dni);
+        printf("Nombre: %s\n\n",persona.nombre);
+    }
+}
 
 
