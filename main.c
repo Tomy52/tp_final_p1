@@ -72,6 +72,7 @@ void verAuto(Auto coche);
 void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
 void verListadoPersonas(FILE *personas);
+void verPersonaPorDNI(FILE *personas);
 
 int logueado = 0;
 
@@ -131,12 +132,13 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 4)
+        while(opcion != 5)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
             printf("3. Ver listado resumido de personas\n");
-            printf("4. Salir\n");
+            printf("4. Ver informacion de una persona (por DNI)\n");
+            printf("5. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -152,6 +154,9 @@ void menuConcesionaria() {
                     verListadoPersonas(personas);
                     break;
                 case 4:
+                    verPersonaPorDNI(personas);
+                    break;
+                case 5:
                     break;
                 default:
                     printf("Elija una opcion valida\n");
@@ -400,10 +405,32 @@ void verPersona(Persona persona) {
 void verListadoPersonas(FILE *personas) {
     Persona persona;
 
-    fseek(personas,0,SEEK_SET);
+    fseek(personas,0,SEEK_SET); //reemplazar por rewind
     while(fread(&persona,sizeof(Persona),1,personas) != 0) {
         printf("\nDNI: %i\n",persona.dni);
         printf("Nombre: %s\n\n",persona.nombre);
+    }
+}
+
+void verPersonaPorDNI(FILE *personas) {
+    Persona persona;
+    int dniSolicitado = 0;
+    int encontrada = 0;
+
+    printf("Ingrese el DNI de la persona a buscar: ");
+    fflush(stdin);
+    scanf("%i",&dniSolicitado);
+
+    fseek(personas,0,SEEK_SET);
+    while(fread(&persona,sizeof(Persona),1,personas) != 0 && encontrada == 0) {
+        if (persona.dni == dniSolicitado) {
+            verPersona(persona);
+            encontrada = 1;
+        }
+    }
+
+    if (encontrada == 0) {
+        printf("No se encontro a la persona con el DNI solicitado");
     }
 }
 
