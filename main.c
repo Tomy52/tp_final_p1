@@ -64,7 +64,7 @@ void loginCheck(int estado);
 int validarLongitudCredenciales(char usuario[], char clave[], int longMax);
 int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
-Patente cargarPatente();
+Patente agregarPatente();
 void verPatente(Patente patente);
 Auto agregarAuto();
 void verAuto(Auto coche);
@@ -230,7 +230,7 @@ int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuario
     return flag;
 }
 
-Patente cargarPatente() {
+Patente agregarPatente() {
     Patente patente;
     char patenteString[7];
     int caracteresCorrectos = 0;
@@ -270,7 +270,7 @@ void verPatente(Patente patente) {
 Auto agregarAuto() {
     Auto coche;
 
-    coche.patente = cargarPatente();
+    coche.patente = agregarPatente();
     printf("Marca: ");
     fflush(stdin);
     scanf("%s",coche.marca);
