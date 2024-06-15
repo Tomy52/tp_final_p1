@@ -57,6 +57,7 @@ int dniVendedor;
 } Venta;
 
 void menuUsuario();
+void menuConcesionaria();
 void agregarUsuario(FILE *usuarios);
 void mostrarUsuario(FILE *usuarios);
 int login(FILE *usuarios);
@@ -75,6 +76,7 @@ int logueado = 0;
 
 int main() {
     menuUsuario();
+    menuConcesionaria();
     return 0;
 }
 
@@ -114,6 +116,47 @@ void menuUsuario() {
     else
     {
         printf("Archivo invalido");
+    }
+}
+
+void menuConcesionaria() {
+    FILE *autos = fopen("autosArch.bin", "ab+");
+    FILE *personas = fopen("personas.bin", "ab+");
+    FILE *ventas = fopen("ventas.bin", "ab+");
+
+    if (autos != NULL && personas != NULL && ventas != NULL)
+    {
+        int opcion = 0;
+
+        printf("Bienvenido a la concesionaria:\n");
+
+        while(opcion != 30)
+        {
+            printf("1. Agregar un auto al stock\n");
+            printf("2. Agregar una persona\n");
+            printf("Opcion elegida: ");
+            scanf("%d", &opcion);
+
+            switch(opcion)
+            {
+                case 1:
+                    agregarAuto();
+                    break;
+                case 2:
+                    agregarPersona();
+                    break;
+                default:
+                    printf("Elija una opcion valida\n");
+                    break;
+            }
+        }
+        fclose(autos);
+        fclose(ventas);
+        fclose(personas);
+    }
+    else
+    {
+        printf("Error en la lectura de los archivos necesarios para trabajar");
     }
 }
 
