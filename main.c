@@ -9,8 +9,8 @@ char clave[LONG_MAX_LOGIN];
 } Usuario;
 
 typedef struct {
-char letras[3];
-char numeros[3];
+char letras[4];
+char numeros[4];
 } Patente;
 
 typedef struct {
@@ -231,7 +231,7 @@ int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuario
 
 Patente cargarPatente() {
     Patente patente;
-    char patenteString[6];
+    char patenteString[7];
 
     printf("Patente: ");
     scanf("%6s", patenteString);
