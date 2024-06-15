@@ -66,7 +66,8 @@ int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
 Patente cargarPatente();
 void verPatente(Patente patente);
-
+Auto agregarAuto();
+void verAuto(Auto coche);
 
 int logueado = 0;
 
@@ -264,6 +265,49 @@ Patente cargarPatente() {
 
 void verPatente(Patente patente) {
     printf("Patente: %s%s\n",patente.letras,patente.numeros);
+}
+
+Auto agregarAuto() {
+    Auto coche;
+
+    coche.patente = cargarPatente();
+    printf("Marca: ");
+    fflush(stdin);
+    scanf("%s",coche.marca);
+
+    printf("Modelo: ");
+    fflush(stdin);
+    scanf("%s",coche.modelo);
+
+    printf("Anio: ");
+    fflush(stdin);
+    scanf("%i",&coche.anio);
+
+    printf("Kilometraje: ");
+    fflush(stdin);
+    scanf("%i",&coche.kms);
+
+    printf("Precio de adquisicion: ");
+    fflush(stdin);
+    scanf("%f",&coche.precioDeAdquisicion);
+
+    return coche;
+}
+
+void verAuto(Auto coche) {
+    verPatente(coche.patente);
+    printf("Marca: %s\n",coche.marca);
+    printf("Modelo: %s\n",coche.modelo);
+    printf("Anio: %i\n",coche.anio);
+    printf("Kilometros: %i\n",coche.kms);
+
+    if (coche.Titular.dni == 0) {
+        printf("En poder de la concesionaria\n");
+    } else {
+        printf("Titular: %i\n",coche.Titular.dni); // A reemplazar
+    }
+
+    printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
 }
 
 
