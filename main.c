@@ -82,7 +82,9 @@ int logueado = 0;
 
 int main() {
     menuUsuario();
-    menuConcesionaria();
+    if (logueado == 1) {
+        menuConcesionaria();
+    }
     return 0;
 }
 
