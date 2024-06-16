@@ -69,6 +69,7 @@ Patente agregarPatente();
 void verPatente(Patente patente);
 void agregarAuto(FILE *archAuto);
 void verAuto(Auto coche);
+void verListadoAutos(FILE *archAuto);
 void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
 void verListadoPersonas(FILE *personas);
@@ -132,13 +133,14 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 5)
+        while(opcion != 6)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
             printf("3. Ver listado resumido de personas\n");
             printf("4. Ver informacion de una persona (por DNI)\n");
-            printf("5. Salir\n");
+            printf("5. Ver listado resumido de autos\n");
+            printf("6. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -157,6 +159,9 @@ void menuConcesionaria() {
                     verPersonaPorDNI(personas);
                     break;
                 case 5:
+                    verListadoAutos(autos);
+                    break;
+                case 6:
                     break;
                 default:
                     printf("Elija una opcion valida\n");
@@ -366,6 +371,18 @@ void verAuto(Auto coche) {
     }
 
     printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
+}
+
+void verListadoAutos(FILE *archAuto) {
+    Auto coche;
+
+    fseek(archAuto,0,SEEK_SET); //reemplazar por rewind
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        printf("\nMarca: %s\n",coche.marca);
+        printf("Modelo: %s\n",coche.modelo);
+        verPatente(coche.patente);
+        printf("\n");
+    }
 }
 
 void agregarPersona(FILE *personas) {
