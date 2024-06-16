@@ -407,19 +407,21 @@ void verAutoDeArchivo(FILE *archAuto, FILE *personas) {
 }
 
 void verAuto(Auto coche) {
+    printf("\n- Informacion del coche - \n");
     verPatente(coche.patente);
     printf("Marca: %s\n",coche.marca);
     printf("Modelo: %s\n",coche.modelo);
     printf("Anio: %i\n",coche.anio);
     printf("Kilometros: %i\n",coche.kms);
+    printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
 
     if (coche.Titular.dni == 0) {
-        printf("En poder de la concesionaria\n");
+        printf("En poder de la concesionaria\n\n");
     } else {
-        printf("Titular: %i\n",coche.Titular.dni); // A reemplazar
+        printf("\n- Informacion del titular - \n");
+        verPersona(coche.Titular);
+        printf("\n");
     }
-
-    printf("Precio de adquisicion: $%.2f\n",coche.precioDeAdquisicion);
 }
 
 void verListadoAutos(FILE *archAuto) {
