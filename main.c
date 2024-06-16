@@ -75,6 +75,7 @@ void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
 void verListadoPersonas(FILE *personas);
 void verPersonaPorDNI(FILE *personas);
+Persona obtenerPersonaPorDNI(FILE *personas, int dni);
 
 int logueado = 0;
 
@@ -464,6 +465,28 @@ void verPersonaPorDNI(FILE *personas) {
     if (encontrada == 0) {
         printf("No se encontro a la persona con el DNI solicitado");
     }
+}
+
+Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
+    Persona persona;
+    int encontrada = 0;
+
+    fseek(personas,0,SEEK_SET);
+    while(fread(&persona,sizeof(Persona),1,personas) != 0 && encontrada == 0) {
+        if (persona.dni == dni) {
+            encontrada = 1;
+        }
+    }
+
+    if (encontrada == 0) {
+        persona.dni = dni;
+        strcpy(persona.nombre,"");
+        persona.telefono = 0;
+        strcpy(persona.direccion,"");
+        strcpy(persona.rol,"");
+    }
+
+    return persona;
 }
 
 
