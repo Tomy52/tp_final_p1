@@ -67,6 +67,7 @@ int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
 Patente agregarPatente();
 void verPatente(Patente patente);
+int compararPatente(Patente patenteA, Patente patenteB);
 void agregarAuto(FILE *archAuto);
 void verAuto(Auto coche);
 void verListadoAutos(FILE *archAuto);
@@ -328,6 +329,20 @@ Patente agregarPatente() {
 
 void verPatente(Patente patente) {
     printf("Patente: %s%s\n",patente.letras,patente.numeros);
+}
+
+int compararPatente(Patente patenteA, Patente patenteB) {
+    int flag = 1;
+
+    if (strcmp(patenteA.letras,patenteB.letras) != 0) {
+        flag = 0;
+    }
+
+    if (strcmp(patenteA.numeros,patenteB.numeros) != 0) {
+        flag = 0;
+    }
+
+    return flag;
 }
 
 void agregarAuto(FILE *archAuto) {
