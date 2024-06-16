@@ -69,6 +69,7 @@ Patente agregarPatente();
 void verPatente(Patente patente);
 int compararPatente(Patente patenteA, Patente patenteB);
 void agregarAuto(FILE *archAuto);
+void verAutoDeArchivo(FILE *archAuto, FILE *personas);
 void verAuto(Auto coche);
 void verListadoAutos(FILE *archAuto);
 void agregarPersona(FILE *personas);
@@ -135,14 +136,15 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 6)
+        while(opcion != 7)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
             printf("3. Ver listado resumido de personas\n");
             printf("4. Ver informacion de una persona (por DNI)\n");
             printf("5. Ver listado resumido de autos\n");
-            printf("6. Salir\n");
+            printf("6. Ver informacion de un auto (por patente)\n");
+            printf("7. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -164,6 +166,9 @@ void menuConcesionaria() {
                     verListadoAutos(autos);
                     break;
                 case 6:
+                    verAutoDeArchivo(autos,personas);
+                    break;
+                case 7:
                     break;
                 default:
                     printf("Elija una opcion valida\n");
@@ -371,6 +376,34 @@ void agregarAuto(FILE *archAuto) {
     scanf("%f",&cocheAGuardar.precioDeAdquisicion);
 
     fwrite(&cocheAGuardar,sizeof(AutoArchivo),1,archAuto);
+}
+
+void verAutoDeArchivo(FILE *archAuto, FILE *personas) {
+    AutoArchivo cocheDeArchivo;
+    Auto coche;
+    Patente patenteBuscada = agregarPatente();
+    int encontrado = 0;
+
+    fseek(archAuto,0,SEEK_SET); // reemplazar por rewind
+    while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0 && encontrado == 0) {
+        if (compararPatente(patenteBuscada,cocheDeArchivo.patente) == 1) {
+            encontrado = 1;
+
+            coche.patente = patenteBuscada;
+            strcpy(coche.marca,cocheDeArchivo.marca);
+            strcpy(coche.modelo,cocheDeArchivo.modelo);
+            coche.anio = cocheDeArchivo.anio;
+            coche.kms = cocheDeArchivo.kms;
+            coche.Titular = obtenerPersonaPorDNI(personas,cocheDeArchivo.dniTitular);
+            coche.precioDeAdquisicion = cocheDeArchivo.precioDeAdquisicion;
+
+            verAuto(coche);
+        }
+    }
+
+    if (encontrado == 0) {
+        printf("No se encontro el coche con la patente solicitada\n");
+    }
 }
 
 void verAuto(Auto coche) {
