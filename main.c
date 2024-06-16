@@ -67,7 +67,7 @@ int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]);
 int validarCredenciales(char usuario[], char clave[], int longMax, FILE *usuarios);
 Patente agregarPatente();
 void verPatente(Patente patente);
-Auto agregarAuto();
+void agregarAuto(FILE *archAuto);
 void verAuto(Auto coche);
 void agregarPersona(FILE *personas);
 void verPersona(Persona persona);
@@ -145,7 +145,7 @@ void menuConcesionaria() {
             switch(opcion)
             {
                 case 1:
-                    agregarAuto();
+                    agregarAuto(autos);
                     break;
                 case 2:
                     agregarPersona(personas);
@@ -325,31 +325,31 @@ void verPatente(Patente patente) {
     printf("Patente: %s%s\n",patente.letras,patente.numeros);
 }
 
-Auto agregarAuto() {
-    Auto coche;
+void agregarAuto(FILE *archAuto) {
+    AutoArchivo cocheAGuardar;
 
-    coche.patente = agregarPatente();
+    cocheAGuardar.patente = agregarPatente();
     printf("Marca: ");
     fflush(stdin);
-    scanf("%s",coche.marca);
+    scanf("%s",cocheAGuardar.marca);
 
     printf("Modelo: ");
     fflush(stdin);
-    scanf("%s",coche.modelo);
+    scanf("%s",cocheAGuardar.modelo);
 
     printf("Anio: ");
     fflush(stdin);
-    scanf("%i",&coche.anio);
+    scanf("%i",&cocheAGuardar.anio);
 
     printf("Kilometraje: ");
     fflush(stdin);
-    scanf("%i",&coche.kms);
+    scanf("%i",&cocheAGuardar.kms);
 
     printf("Precio de adquisicion: ");
     fflush(stdin);
-    scanf("%f",&coche.precioDeAdquisicion);
+    scanf("%f",&cocheAGuardar.precioDeAdquisicion);
 
-    return coche;
+    fwrite(&cocheAGuardar,sizeof(AutoArchivo),1,archAuto);
 }
 
 void verAuto(Auto coche) {
