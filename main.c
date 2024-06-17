@@ -107,7 +107,7 @@ void menuConcesionaria() {
                     verListadoAutos(autos);
                     break;
                 case 6:
-                    verAutoDeArchivo(autos,personas);
+                    verAuto(obtenerAutoDeArchivo(autos,personas));
                     break;
                 case 7:
                     break;

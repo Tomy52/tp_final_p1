@@ -31,32 +31,39 @@ void agregarAuto(FILE *archAuto) {
     fwrite(&cocheAGuardar,sizeof(AutoArchivo),1,archAuto);
 }
 
-void verAutoDeArchivo(FILE *archAuto, FILE *personas) {
+Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
+    Patente *areaPatente = calloc(2,sizeof(Patente));
     AutoArchivo cocheDeArchivo;
     Auto coche;
-    Patente patenteBuscada = agregarPatente();
+
     int encontrado = 0;
 
-    fseek(archAuto,0,SEEK_SET); // reemplazar por rewind
-    while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0 && encontrado == 0) {
-        if (compararPatente(patenteBuscada,cocheDeArchivo.patente) == 1) {
-            encontrado = 1;
+    while (encontrado == 0) {
+        areaPatente[1] = agregarPatente();
+        strncpy(areaPatente[2].letras,areaPatente[1].letras,3);
+        strncpy(areaPatente[2].numeros,areaPatente[1].numeros,3);
 
-            coche.patente = patenteBuscada;
-            strcpy(coche.marca,cocheDeArchivo.marca);
-            strcpy(coche.modelo,cocheDeArchivo.modelo);
-            coche.anio = cocheDeArchivo.anio;
-            coche.kms = cocheDeArchivo.kms;
-            coche.Titular = obtenerPersonaPorDNI(personas,cocheDeArchivo.dniTitular);
-            coche.precioDeAdquisicion = cocheDeArchivo.precioDeAdquisicion;
+        fseek(archAuto,0,SEEK_SET);
+        while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0) {
+            if (compararPatente(areaPatente[2],cocheDeArchivo.patente) == 1) {
+                coche.patente = areaPatente[2];
+                strcpy(coche.marca,cocheDeArchivo.marca);
+                strcpy(coche.modelo,cocheDeArchivo.modelo);
+                coche.anio = cocheDeArchivo.anio;
+                coche.kms = cocheDeArchivo.kms;
+                coche.Titular = obtenerPersonaPorDNI(personas,cocheDeArchivo.dniTitular);
+                coche.precioDeAdquisicion = cocheDeArchivo.precioDeAdquisicion;
 
-            verAuto(coche);
+                encontrado = 1;
+            }
+        }
+
+        if (encontrado == 0) {
+            printf("No se pudo encontrar el auto con la patente solicitada, intente nuevamente\n");
         }
     }
 
-    if (encontrado == 0) {
-        printf("No se encontro el coche con la patente solicitada\n");
-    }
+    return coche;
 }
 
 void verAuto(Auto coche) {
