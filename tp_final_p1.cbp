@@ -53,6 +53,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="lib/Usuario.h" />
+		<Unit filename="lib/Venta.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Venta.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
