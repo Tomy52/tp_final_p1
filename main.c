@@ -79,6 +79,7 @@ void verPersonaPorDNI(FILE *personas);
 Persona obtenerPersonaPorDNI(FILE *personas, int dni);
 Fecha crearFecha();
 void verFecha(Fecha fecha);
+int compararFecha(Fecha fechaA, Fecha fechaB);
 
 int logueado = 0;
 
@@ -562,4 +563,20 @@ void verFecha(Fecha fecha) {
     printf("%i/%i/%i",fecha.dia,fecha.mes,fecha.anio);
 }
 
+int compararFecha(Fecha fechaA, Fecha fechaB) {
+    int flag = 1;
 
+    if (fechaA.anio != fechaB.anio) {
+        flag = 0;
+    }
+
+    if (fechaA.mes != fechaB.mes) {
+        flag = 0;
+    }
+
+    if (fechaA.dia != fechaB.dia) {
+        flag = 0;
+    }
+
+    return flag;
+}
