@@ -77,6 +77,8 @@ void verPersona(Persona persona);
 void verListadoPersonas(FILE *personas);
 void verPersonaPorDNI(FILE *personas);
 Persona obtenerPersonaPorDNI(FILE *personas, int dni);
+Fecha crearFecha();
+void verFecha(Fecha fecha);
 
 int logueado = 0;
 
@@ -524,6 +526,40 @@ Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
     }
 
     return persona;
+}
+
+Fecha crearFecha() {
+    Fecha fecha;
+    int dia;
+    int mes;
+    int anio;
+    int formatoCorrecto = 0;
+
+    while (formatoCorrecto == 0) {
+        printf("Ingrese el dia: ");
+        scanf("%d", &dia);
+
+        printf("Ingrese el mes: ");
+        scanf("%d", &mes);
+
+        printf("Ingrese el anio: ");
+        scanf("%d", &anio);
+
+        if (anio > 0 && mes >= 1 && mes <= 12 && dia >= 1 && dia <= 31) {
+            fecha.dia = dia;
+            fecha.mes = mes;
+            fecha.anio = anio;
+            formatoCorrecto = 1;
+        } else {
+            printf("La fecha contiene errores\n");
+        }
+    }
+
+    return fecha;
+}
+
+void verFecha(Fecha fecha) {
+    printf("%i/%i/%i",fecha.dia,fecha.mes,fecha.anio);
 }
 
 
