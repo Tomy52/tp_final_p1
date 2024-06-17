@@ -28,6 +28,8 @@ void agregarAuto(FILE *archAuto) {
     fflush(stdin);
     scanf("%f",&cocheAGuardar.precioDeAdquisicion);
 
+    cocheAGuardar.dniTitular = 0;
+
     fwrite(&cocheAGuardar,sizeof(AutoArchivo),1,archAuto);
 }
 
