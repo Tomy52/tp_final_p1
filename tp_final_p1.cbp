@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="lib" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="lib" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -31,26 +33,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Auto.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Auto.h" />
-		<Unit filename="Fecha.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Fecha.h" />
-		<Unit filename="Patente.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Patente.h" />
-		<Unit filename="Persona.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Persona.h" />
-		<Unit filename="Usuario.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Usuario.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
