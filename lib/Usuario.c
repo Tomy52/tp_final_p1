@@ -33,18 +33,6 @@ void agregarUsuario(FILE *usuarios) {
 
 }
 
-void mostrarUsuario(FILE *usuarios) { // Funcion de prueba, muestra los usuarios cargados en un archivo dado
-    Usuario usuario;
-
-    fseek(usuarios,0,SEEK_SET);
-
-    while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0) {
-        printf("Nombre: %s\n", usuario.nombre);
-        printf("Clave: %s\n\n", usuario.clave);
-    }
-
-}
-
 int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 si fue exitoso
     Usuario usuario;
     char nombreEnviado[LONG_MAX_LOGIN];
@@ -70,11 +58,6 @@ int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 
     if (flag == 0) printf("No se encontro el usuario / clave incorrecta\n");
 
     return flag;
-}
-
-void loginCheck(int estado) { // Funcion de prueba, chequea si el login fue exitoso o no
-    if (estado == 1) printf("esta logueado");
-    if (estado == 0) printf("no esta logueado");
 }
 
 int validarLongitudCredenciales(char usuario[], char clave[], int longMax) {
