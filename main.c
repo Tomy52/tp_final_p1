@@ -4,15 +4,7 @@
 #include "Persona.h"
 #include "Auto.h"
 #include "Fecha.h"
-
-typedef struct {
-Fecha fecha;
-Patente autoAVender;
-float precioVenta;
-float ganancia;
-int dniComprador;
-int dniVendedor;
-} Venta;
+#include "Venta.h"
 
 void menuUsuario();
 void menuConcesionaria();
