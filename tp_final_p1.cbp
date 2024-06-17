@@ -33,6 +33,26 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="lib/Auto.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Auto.h" />
+		<Unit filename="lib/Fecha.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Fecha.h" />
+		<Unit filename="lib/Patente.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Patente.h" />
+		<Unit filename="lib/Persona.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Persona.h" />
+		<Unit filename="lib/Usuario.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Usuario.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
