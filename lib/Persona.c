@@ -49,23 +49,12 @@ void verListadoPersonas(FILE *personas) {
 void verPersonaPorDNI(FILE *personas) {
     Persona persona;
     int dniSolicitado = 0;
-    int encontrada = 0;
 
     printf("Ingrese el DNI de la persona a buscar: ");
     fflush(stdin);
     scanf("%i",&dniSolicitado);
 
-    fseek(personas,0,SEEK_SET);
-    while(fread(&persona,sizeof(Persona),1,personas) != 0 && encontrada == 0) {
-        if (persona.dni == dniSolicitado) {
-            verPersona(persona);
-            encontrada = 1;
-        }
-    }
-
-    if (encontrada == 0) {
-        printf("No se encontro a la persona con el DNI solicitado");
-    }
+    verPersona(obtenerPersonaPorDNI(personas,dniSolicitado));
 }
 
 Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
