@@ -33,10 +33,9 @@ void agregarAuto(FILE *archAuto) {
     fwrite(&cocheAGuardar,sizeof(AutoArchivo),1,archAuto);
 }
 
-Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
+AutoArchivo obtenerAutoDeArchivo(FILE *archAuto) {
     Patente *areaPatente = calloc(2,sizeof(Patente));
     AutoArchivo cocheDeArchivo;
-    Auto coche;
 
     int encontrado = 0;
 
@@ -48,9 +47,8 @@ Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
         rewind(archAuto);
         while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0) {
             if (compararPatente(areaPatente[2],cocheDeArchivo.patente) == 1) {
-                coche = convertirAuto(cocheDeArchivo,personas);
-
                 encontrado = 1;
+                return cocheDeArchivo;
             }
         }
 
@@ -58,8 +56,6 @@ Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
             printf("No se pudo encontrar el auto con la patente solicitada, intente nuevamente\n");
         }
     }
-
-    return coche;
 }
 
 void verAuto(Auto coche) {

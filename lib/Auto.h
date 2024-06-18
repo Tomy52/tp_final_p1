@@ -26,7 +26,7 @@ float precioDeAdquisicion;
 } Auto;
 
 void agregarAuto(FILE *archAuto);
-Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas);
+AutoArchivo obtenerAutoDeArchivo(FILE *archAuto);
 void verAuto(Auto coche);
 void verListadoAutos(FILE *archAuto);
 Auto convertirAuto(AutoArchivo autoDeArchivo, FILE *personas);

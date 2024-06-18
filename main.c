@@ -109,7 +109,7 @@ void menuConcesionaria() {
                     verArregloDeAutos(obtenerAutosEnVenta(autos,personas),cantAutosEnVenta(autos));
                     break;
                 case 7:
-                    verAuto(obtenerAutoDeArchivo(autos,personas));
+                    verAuto(convertirAuto(obtenerAutoDeArchivo(autos),personas));
                     break;
                 case 8:
                     agregarVenta(ventas,autos,personas);

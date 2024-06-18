@@ -13,7 +13,7 @@ void agregarVenta(FILE *ventas,FILE *autos, FILE *personas) {
     rewind(ventas);
 
     printf ("Ingrese la patente del auto a vender: ");
-    datosAutoAVender = obtenerAutoDeArchivo(autos,personas);
+    datosAutoAVender = convertirAuto(obtenerAutoDeArchivo(autos),personas);
     venta.autoAVender = datosAutoAVender.patente;
 
     printf("Fecha de la venta: ");
