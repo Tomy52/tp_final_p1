@@ -92,19 +92,6 @@ void verListadoAutos(FILE *archAuto) {
     }
 }
 
-int cantAutosEnVenta(FILE *archAuto) {
-    AutoArchivo coche;
-    int autosEnVenta = 0;
-
-    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
-        if (coche.dniTitular == 0) {
-            autosEnVenta++;
-        }
-    }
-
-    return autosEnVenta;
-}
-
 Auto convertirAuto(AutoArchivo autoDeArchivo, FILE *personas) {
     Auto autoConvertido;
 
@@ -117,4 +104,40 @@ Auto convertirAuto(AutoArchivo autoDeArchivo, FILE *personas) {
     autoConvertido.precioDeAdquisicion = autoDeArchivo.precioDeAdquisicion;
 
     return autoConvertido;
+}
+
+int cantAutosEnVenta(FILE *archAuto) {
+    AutoArchivo coche;
+    int autosEnVenta = 0;
+
+    fseek(archAuto,0,SEEK_SET);
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        if (coche.dniTitular == 0) {
+            autosEnVenta++;
+        }
+    }
+
+    return autosEnVenta;
+}
+
+Auto* obtenerAutosEnVenta(FILE *archAuto, FILE *personas) {
+    Auto *autosEnVenta = malloc(cantAutosEnVenta(archAuto)*(sizeof(Auto)));
+    AutoArchivo coche;
+    int i = 0;
+
+    fseek(archAuto,0,SEEK_SET);
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        if (coche.dniTitular == 0) {
+            autosEnVenta[i] = convertirAuto(coche,personas);
+            i++;
+        }
+    }
+
+    return autosEnVenta;
+}
+
+void verAutosEnVenta(Auto *autosEnVenta, int cantidad) {
+    for (int i = 0; i < cantidad; i++) {
+        verAuto(autosEnVenta[i]);
+    }
 }
