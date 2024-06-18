@@ -136,8 +136,54 @@ Auto* obtenerAutosEnVenta(FILE *archAuto, FILE *personas) {
     return autosEnVenta;
 }
 
-void verAutosEnVenta(Auto *autosEnVenta, int cantidad) {
-    for (int i = 0; i < cantidad; i++) {
-        verAuto(autosEnVenta[i]);
+void verArregloDeAutos(Auto *arregloAutos, int validos) {
+    for (int i = 0; i < validos; i++) {
+        verAuto(arregloAutos[i]);
     }
+}
+
+int cantAutosMenoresADiezAnios(FILE *archAuto) {
+    AutoArchivo coche;
+    int autosMenores = 0;
+
+    rewind(archAuto);
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        if (coche.anio > 2014) {
+            autosMenores++;
+        }
+    }
+
+    return autosMenores;
+}
+
+Auto* obtenerAutosMenoresADiezAnios(FILE *archAuto, FILE *personas) {
+    Auto *autosMenoresADiezAnios = malloc(cantAutosMenoresADiezAnios(archAuto)*(sizeof(Auto)));
+    AutoArchivo coche;
+    int i = 0;
+
+    rewind(archAuto);
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        if (coche.anio > 2014) {
+            autosMenoresADiezAnios[i] = convertirAuto(coche,personas);
+            i++;
+        }
+    }
+
+    return autosMenoresADiezAnios;
+}
+
+Auto* ordenarPorAntiguedad(Auto *arregloAutos, int validos) {
+    for (int i = 0; i < validos - 1; i++) {
+        int posMenor = i;
+        for (int j = i + 1; j < validos; j++) {
+            if (arregloAutos[j].anio < arregloAutos[posMenor].anio) {
+                posMenor = j;
+            }
+        }
+        Auto menor = arregloAutos[posMenor];
+        arregloAutos[posMenor] = arregloAutos[i];
+        arregloAutos[i] = menor;
+    }
+
+    return arregloAutos;
 }

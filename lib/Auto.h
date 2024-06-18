@@ -32,6 +32,9 @@ void verListadoAutos(FILE *archAuto);
 Auto convertirAuto(AutoArchivo autoDeArchivo, FILE *personas);
 int cantAutosEnVenta(FILE *archAuto);
 Auto* obtenerAutosEnVenta(FILE *archAuto,FILE *personas);
-void verAutosEnVenta(Auto *autosEnVenta, int cantidad);
+void verArregloDeAutos(Auto *arregloAutos, int validos);
+int cantAutosMenoresADiezAnios(FILE *archAuto);
+Auto* obtenerAutosMenoresADiezAnios(FILE *archAuto, FILE *personas);
+Auto* ordenarPorAntiguedad(Auto *arregloAutos, int validos);
 
 #endif // AUTO_H_INCLUDED
