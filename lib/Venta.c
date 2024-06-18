@@ -49,7 +49,7 @@ Venta obtenerVentaDeArchivo(FILE *ventas) {
         printf("Ingrese la fecha de la venta a buscar:\n");
         fechaVenta = crearFecha();
 
-        fseek(ventas,0,SEEK_SET);
+        rewind(ventas);
         while (fread(&venta,sizeof(Venta),1,ventas) != 0 && encontrada == 0) {
             if (compararFecha(fechaVenta,venta.fecha) == 1) {
                 encontrada = 1;

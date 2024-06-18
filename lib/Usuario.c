@@ -45,7 +45,7 @@ int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 
     printf("Ingrese una clave: ");
     scanf("%s", &claveEnviada);
 
-    fseek(usuarios,0,SEEK_SET);
+    rewind(usuarios);
 
     while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0 && flag == 0) {
         if (strcmp(nombreEnviado, usuario.nombre) == 0 && strcmp(claveEnviada, usuario.clave) == 0) {
@@ -74,7 +74,7 @@ int validarExistenciaUsuario(FILE *usuarios, char nombreUsuario[]) {
     int flag = 0;
     Usuario usuario;
 
-    fseek(usuarios,0,SEEK_SET);
+    rewind(usuarios);
 
     while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0 && flag == 0) {
         if (strcmp(usuario.nombre, nombreUsuario) == 0) {

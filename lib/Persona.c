@@ -39,7 +39,7 @@ void verPersona(Persona persona) {
 void verListadoPersonas(FILE *personas) {
     Persona persona;
 
-    fseek(personas,0,SEEK_SET); //reemplazar por rewind
+    rewind(personas);
     while(fread(&persona,sizeof(Persona),1,personas) != 0) {
         printf("\nDNI: %i\n",persona.dni);
         printf("Nombre: %s\n\n",persona.nombre);
@@ -61,7 +61,7 @@ Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
     Persona persona;
     int encontrada = 0;
 
-    fseek(personas,0,SEEK_SET);
+    rewind(personas);
     while(fread(&persona,sizeof(Persona),1,personas) != 0 && encontrada == 0) {
         if (persona.dni == dni) {
             encontrada = 1;

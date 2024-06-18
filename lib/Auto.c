@@ -45,7 +45,7 @@ Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
         strncpy(areaPatente[2].letras,areaPatente[1].letras,3);
         strncpy(areaPatente[2].numeros,areaPatente[1].numeros,3);
 
-        fseek(archAuto,0,SEEK_SET);
+        rewind(archAuto);
         while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0) {
             if (compararPatente(areaPatente[2],cocheDeArchivo.patente) == 1) {
                 coche = convertirAuto(cocheDeArchivo,personas);
@@ -83,7 +83,7 @@ void verAuto(Auto coche) {
 void verListadoAutos(FILE *archAuto) {
     Auto coche;
 
-    fseek(archAuto,0,SEEK_SET); //reemplazar por rewind
+    rewind(archAuto);
     while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
         printf("\nMarca: %s\n",coche.marca);
         printf("Modelo: %s\n",coche.modelo);
@@ -110,7 +110,7 @@ int cantAutosEnVenta(FILE *archAuto) {
     AutoArchivo coche;
     int autosEnVenta = 0;
 
-    fseek(archAuto,0,SEEK_SET);
+    rewind(archAuto);
     while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
         if (coche.dniTitular == 0) {
             autosEnVenta++;
@@ -125,7 +125,7 @@ Auto* obtenerAutosEnVenta(FILE *archAuto, FILE *personas) {
     AutoArchivo coche;
     int i = 0;
 
-    fseek(archAuto,0,SEEK_SET);
+    rewind(archAuto);
     while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
         if (coche.dniTitular == 0) {
             autosEnVenta[i] = convertirAuto(coche,personas);
