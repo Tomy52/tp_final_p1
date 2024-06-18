@@ -48,13 +48,7 @@ Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas) {
         fseek(archAuto,0,SEEK_SET);
         while(fread(&cocheDeArchivo,sizeof(AutoArchivo),1,archAuto) != 0) {
             if (compararPatente(areaPatente[2],cocheDeArchivo.patente) == 1) {
-                coche.patente = areaPatente[2];
-                strcpy(coche.marca,cocheDeArchivo.marca);
-                strcpy(coche.modelo,cocheDeArchivo.modelo);
-                coche.anio = cocheDeArchivo.anio;
-                coche.kms = cocheDeArchivo.kms;
-                coche.Titular = obtenerPersonaPorDNI(personas,cocheDeArchivo.dniTitular);
-                coche.precioDeAdquisicion = cocheDeArchivo.precioDeAdquisicion;
+                coche = convertirAuto(cocheDeArchivo,personas);
 
                 encontrado = 1;
             }
@@ -109,4 +103,18 @@ int cantAutosEnVenta(FILE *archAuto) {
     }
 
     return autosEnVenta;
+}
+
+Auto convertirAuto(AutoArchivo autoDeArchivo, FILE *personas) {
+    Auto autoConvertido;
+
+    autoConvertido.patente = autoDeArchivo.patente;
+    strcpy(autoConvertido.marca,autoDeArchivo.marca);
+    strcpy(autoConvertido.modelo,autoDeArchivo.modelo);
+    autoConvertido.anio = autoDeArchivo.anio;
+    autoConvertido.kms = autoDeArchivo.kms;
+    autoConvertido.Titular = obtenerPersonaPorDNI(personas,autoDeArchivo.dniTitular);
+    autoConvertido.precioDeAdquisicion = autoDeArchivo.precioDeAdquisicion;
+
+    return autoConvertido;
 }
