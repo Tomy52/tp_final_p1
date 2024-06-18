@@ -43,6 +43,7 @@ void menuUsuario() {
                 break;
             case 2:
                 logueado = login(usuarios);
+                system("cls");
                 break;
             case 3:
                 break;
@@ -68,7 +69,7 @@ void menuConcesionaria() {
     {
         int opcion = 0;
 
-        printf("Bienvenido a la concesionaria:\n");
+        printf("Menu concesionaria:\n");
 
         while(opcion != 13)
         {
@@ -92,23 +93,30 @@ void menuConcesionaria() {
             {
                 case 1:
                     agregarAuto(autos);
+                    system("cls");
                     break;
                 case 2:
                     agregarPersona(personas);
+                    system("cls");
                     break;
                 case 3:
+                    system("cls");
                     verListadoPersonas(personas);
                     break;
                 case 4:
+                    system("cls");
                     verPersonaPorDNI(personas);
                     break;
                 case 5:
+                    system("cls");
                     verListadoAutos(autos);
                     break;
                 case 6:
+                    system("cls");
                     verArregloDeAutos(obtenerAutosEnVenta(autos,personas),cantAutosEnVenta(autos));
                     break;
                 case 7:
+                    system("cls");
                     verAuto(convertirAuto(obtenerAutoDeArchivo(autos),personas));
                     break;
                 case 8:
@@ -119,17 +127,23 @@ void menuConcesionaria() {
 
                     fclose(autos);
                     autos = fopen("autosArch.bin", "ab+");
+
+                    system("cls");
                     break;
                 case 9:
+                    system("cls");
                     verVenta(obtenerVentaDeArchivo(ventas));
                     break;
                 case 10:
+                    system("cls");
                     verGananciaPeriodo(ventas);
                     break;
                 case 11:
+                    system("cls");
                     verVentaMasFavorable(ventas);
                     break;
                 case 12:
+                    system("cls");
                     verArregloDeAutos(obtenerAutosMenoresADiezAnios(autos,personas),cantAutosMenoresADiezAnios(autos));
                     break;
                 case 13:

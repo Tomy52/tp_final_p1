@@ -49,7 +49,6 @@ int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 
 
     while (fread(&usuario, sizeof(Usuario), 1, usuarios) != 0 && flag == 0) {
         if (strcmp(nombreEnviado, usuario.nombre) == 0 && strcmp(claveEnviada, usuario.clave) == 0) {
-            printf("Bienvenido %s\n", usuario.nombre);
             flag = 1;
         }
     }

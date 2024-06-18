@@ -78,7 +78,7 @@ void verAuto(Auto coche) {
 }
 
 void verListadoAutos(FILE *archAuto) {
-    Auto coche; // Cambiar a AutoArchivo!!
+    AutoArchivo coche;
 
     rewind(archAuto);
     while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
