@@ -69,7 +69,7 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 10)
+        while(opcion != 11)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
@@ -80,7 +80,8 @@ void menuConcesionaria() {
             printf("7. Ver informacion de un auto (por patente)\n");
             printf("8. Agregar una venta\n");
             printf("9. Ver una venta (por fecha)\n");
-            printf("10. Salir\n");
+            printf("10. Ver ganancia de un periodo (anio y mes)\n");
+            printf("11. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -114,6 +115,9 @@ void menuConcesionaria() {
                     verVenta(obtenerVentaDeArchivo(ventas));
                     break;
                 case 10:
+                    verGananciaPeriodo(ventas);
+                    break;
+                case 11:
                     break;
                 default:
                     printf("Elija una opcion valida\n");

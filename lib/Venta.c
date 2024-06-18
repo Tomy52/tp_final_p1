@@ -65,3 +65,32 @@ Venta obtenerVentaDeArchivo(FILE *ventas) {
 
     return venta;
 }
+
+void verGananciaPeriodo(FILE *ventas) {
+    Venta venta;
+    Fecha periodo;
+    float ganancias[31] = {0};
+    float total = 0;
+    int dia = 0;
+
+    printf("Ingrese el anio que desea buscar: ");
+    scanf("%i",&periodo.anio);
+
+    printf("Ingrese el mes que desea buscar: ");
+    scanf("%i",&periodo.mes);
+
+    rewind(ventas);
+
+    while (fread(&venta,sizeof(Venta),1,ventas) != 0) {
+        if (venta.fecha.anio == periodo.anio && venta.fecha.mes == periodo.mes) {
+            ganancias[venta.fecha.dia - 1] = venta.ganancia;
+        }
+    }
+
+    for (int i = 0; i < 31; i++) {
+        total += ganancias[i];
+    }
+
+
+    printf ("\n La ganancia total del periodo fue de $%.2f\n",total);
+}
