@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "Patente.h"
 #include "Persona.h"
+#include "Venta.h"
 
 typedef struct {
 Patente patente;
@@ -36,5 +37,6 @@ void verArregloDeAutos(Auto *arregloAutos, int validos);
 int cantAutosMenoresADiezAnios(FILE *archAuto);
 Auto* obtenerAutosMenoresADiezAnios(FILE *archAuto, FILE *personas);
 Auto* ordenarPorAntiguedad(Auto *arregloAutos, int validos);
+void cambiarTitular(FILE *archAuto, Venta venta);
 
 #endif // AUTO_H_INCLUDED

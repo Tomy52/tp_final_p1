@@ -29,6 +29,8 @@ void agregarVenta(FILE *ventas,FILE *autos, FILE *personas) {
 
     venta.dniVendedor = datosAutoAVender.Titular.dni;
 
+    cambiarTitular(autos, venta);
+
     fwrite(&venta,sizeof(Venta),1,ventas);
 }
 

@@ -2,8 +2,7 @@
 #define VENTA_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
-#include "Persona.h"
-#include "Auto.h"
+#include "Patente.h"
 #include "Fecha.h"
 
 typedef struct {

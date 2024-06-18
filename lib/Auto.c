@@ -1,6 +1,7 @@
 #include "Auto.h"
 #include "Patente.h"
 #include "Persona.h"
+#include "Venta.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -77,7 +78,7 @@ void verAuto(Auto coche) {
 }
 
 void verListadoAutos(FILE *archAuto) {
-    Auto coche;
+    Auto coche; // Cambiar a AutoArchivo!!
 
     rewind(archAuto);
     while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
@@ -182,4 +183,27 @@ Auto* ordenarPorAntiguedad(Auto *arregloAutos, int validos) {
     }
 
     return arregloAutos;
+}
+
+void cambiarTitular(FILE *archAuto, Venta venta) {
+    AutoArchivo coche;
+
+    int encontrado = 0;
+    int posAuto = 0;
+
+    while (encontrado == 0) {
+        rewind(archAuto);
+        while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+            if (compararPatente(venta.autoAVender,coche.patente) == 1) {
+                posAuto = ftell(archAuto) - sizeof(AutoArchivo);
+                encontrado = 1;
+                break;
+            }
+        }
+    }
+
+    coche.dniTitular = venta.dniComprador;
+    coche.precioDeAdquisicion = venta.precioVenta;
+    fseek(archAuto, posAuto, SEEK_SET);
+    fwrite(&coche,sizeof(AutoArchivo),1,archAuto);
 }

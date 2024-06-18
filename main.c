@@ -112,7 +112,13 @@ void menuConcesionaria() {
                     verAuto(convertirAuto(obtenerAutoDeArchivo(autos),personas));
                     break;
                 case 8:
+                    fclose(autos);
+                    autos = fopen("autosArch.bin", "rb+");
+
                     agregarVenta(ventas,autos,personas);
+
+                    fclose(autos);
+                    autos = fopen("autosArch.bin", "ab+");
                     break;
                 case 9:
                     verVenta(obtenerVentaDeArchivo(ventas));
@@ -125,6 +131,8 @@ void menuConcesionaria() {
                     break;
                 case 12:
                     verArregloDeAutos(obtenerAutosMenoresADiezAnios(autos,personas),cantAutosMenoresADiezAnios(autos));
+                    break;
+                case 13:
                     break;
                 default:
                     printf("Elija una opcion valida\n");
