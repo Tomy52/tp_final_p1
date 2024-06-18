@@ -9,6 +9,8 @@ void agregarVenta(FILE *ventas,FILE *autos, FILE *personas) {
     Venta venta;
     Auto datosAutoAVender;
 
+    rewind(ventas);
+
     printf ("Ingrese la patente del auto a vender: ");
     datosAutoAVender = obtenerAutoDeArchivo(autos,personas);
     venta.autoAVender = datosAutoAVender.patente;
@@ -46,11 +48,11 @@ Venta obtenerVentaDeArchivo(FILE *ventas) {
     int encontrada = 0;
 
     while (encontrada == 0) {
+        rewind(ventas);
         printf("Ingrese la fecha de la venta a buscar:\n");
         fechaVenta = crearFecha();
 
-        rewind(ventas);
-        while (fread(&venta,sizeof(Venta),1,ventas) != 0 && encontrada == 0) {
+        while (compararFecha(fechaVenta,venta.fecha) != 1 && fread(&venta,sizeof(Venta),1,ventas) != 0) {
             if (compararFecha(fechaVenta,venta.fecha) == 1) {
                 encontrada = 1;
             }
