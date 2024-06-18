@@ -19,5 +19,6 @@ void agregarVenta(FILE *ventas,FILE *autos, FILE *personas);
 void verVenta(Venta venta);
 Venta obtenerVentaDeArchivo(FILE *ventas);
 void verMatrizGananciaAnio(FILE *ventas);
+void verVentaMasFavorable(FILE *ventas);
 
 #endif // VENTA_H_INCLUDED

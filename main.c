@@ -5,6 +5,7 @@
 #include "Auto.h"
 #include "Fecha.h"
 #include "Venta.h"
+#include "pila.h"
 
 void menuUsuario();
 void menuConcesionaria();
@@ -69,7 +70,7 @@ void menuConcesionaria() {
 
         printf("Bienvenido a la concesionaria:\n");
 
-        while(opcion != 11)
+        while(opcion != 12)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
@@ -81,7 +82,8 @@ void menuConcesionaria() {
             printf("8. Agregar una venta\n");
             printf("9. Ver una venta (por fecha)\n");
             printf("10. Ver ganancia de un periodo (anio y mes)\n");
-            printf("11. Salir\n");
+            printf("11. Ver venta mas favorable (mayor ganancia)\n");
+            printf("12. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -118,7 +120,7 @@ void menuConcesionaria() {
                     verGananciaPeriodo(ventas);
                     break;
                 case 11:
-                    break;
+                    verVentaMasFavorable(ventas);
                 default:
                     printf("Elija una opcion valida\n");
                     break;

@@ -4,6 +4,7 @@
 #include "Persona.h"
 #include "Auto.h"
 #include "Fecha.h"
+#include "pila.h"
 
 void agregarVenta(FILE *ventas,FILE *autos, FILE *personas) {
     Venta venta;
@@ -93,4 +94,13 @@ void verGananciaPeriodo(FILE *ventas) {
 
 
     printf ("\n La ganancia total del periodo fue de $%.2f\n",total);
+}
+
+void verVentaMasFavorable(FILE *ventas) {
+    Pila pilaVentas;
+    inicpila(&pilaVentas);
+
+    leer(&pilaVentas,ventas);
+    pilaVentas = pilaOrdenada(&pilaVentas);
+    verVenta(tope(&pilaVentas));
 }
