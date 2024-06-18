@@ -65,6 +65,7 @@ Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
     while(fread(&persona,sizeof(Persona),1,personas) != 0 && encontrada == 0) {
         if (persona.dni == dni) {
             encontrada = 1;
+            break;
         }
     }
 
