@@ -29,5 +29,6 @@ void agregarAuto(FILE *archAuto);
 Auto obtenerAutoDeArchivo(FILE *archAuto, FILE *personas);
 void verAuto(Auto coche);
 void verListadoAutos(FILE *archAuto);
+int cantAutosEnVenta(FILE *archAuto);
 
 #endif // AUTO_H_INCLUDED

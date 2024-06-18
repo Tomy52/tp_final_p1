@@ -97,3 +97,16 @@ void verListadoAutos(FILE *archAuto) {
         printf("\n");
     }
 }
+
+int cantAutosEnVenta(FILE *archAuto) {
+    AutoArchivo coche;
+    int autosEnVenta = 0;
+
+    while(fread(&coche,sizeof(AutoArchivo),1,archAuto) != 0) {
+        if (coche.dniTitular == 0) {
+            autosEnVenta++;
+        }
+    }
+
+    return autosEnVenta;
+}
