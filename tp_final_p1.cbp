@@ -57,6 +57,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="lib/Venta.h" />
+		<Unit filename="lib/pila.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/pila.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
