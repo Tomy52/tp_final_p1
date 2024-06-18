@@ -70,7 +70,14 @@ Persona obtenerPersonaPorDNI(FILE *personas, int dni) {
 
     if (encontrada == 0) {
         persona.dni = dni;
-        strcpy(persona.nombre,"");
+        if (dni == 0)
+        {
+            strcpy(persona.nombre,"Concesionaria");
+        }
+        else
+        {
+            strcpy(persona.nombre,"");
+        }
         persona.telefono = 0;
         strcpy(persona.direccion,"");
         strcpy(persona.rol,"");
