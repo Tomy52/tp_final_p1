@@ -33,7 +33,7 @@ void agregarUsuario(FILE *usuarios) {
 
 }
 
-int login(FILE *usuarios) { // Lee archivo de usuarios y retorna 0 si fallo o 1 si fue exitoso
+int login(FILE *usuarios) {
     Usuario usuario;
     char nombreEnviado[LONG_MAX_LOGIN];
     char claveEnviada[LONG_MAX_LOGIN];
