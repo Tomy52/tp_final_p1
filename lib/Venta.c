@@ -69,6 +69,18 @@ Venta obtenerVentaDeArchivo(FILE *ventas) {
     return venta;
 }
 
+void verListadoVentas(FILE *ventas) {
+    Venta venta;
+
+    rewind(ventas);
+    while(fread(&venta,sizeof(Venta),1,ventas) != 0) {
+        verFecha(venta.fecha);
+        printf(" ");
+        verPatente(venta.autoAVender);
+        printf("\n");
+    }
+}
+
 void verGananciaPeriodo(FILE *ventas) {
     Venta venta;
     Fecha periodo;

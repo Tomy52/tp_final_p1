@@ -71,7 +71,7 @@ void menuConcesionaria() {
 
         printf("Menu concesionaria:\n");
 
-        while(opcion != 13)
+        while(opcion != 14)
         {
             printf("1. Agregar un auto al stock\n");
             printf("2. Agregar una persona\n");
@@ -81,11 +81,12 @@ void menuConcesionaria() {
             printf("6. Ver autos en venta (a nombre de la concesionaria)\n");
             printf("7. Ver informacion de un auto (por patente)\n");
             printf("8. Agregar una venta\n");
-            printf("9. Ver una venta (por fecha)\n");
-            printf("10. Ver ganancia de un periodo (anio y mes)\n");
-            printf("11. Ver venta mas favorable (mayor ganancia)\n");
-            printf("12. Ver autos con antiguedad menor a 10 anios\n");
-            printf("13. Salir\n");
+            printf("9. Ver listado de ventas realizadas\n");
+            printf("10. Ver una venta (por fecha)\n");
+            printf("11. Ver ganancia de un periodo (anio y mes)\n");
+            printf("12. Ver venta mas favorable (mayor ganancia)\n");
+            printf("13. Ver autos con antiguedad menor a 10 anios\n");
+            printf("14. Salir\n");
             printf("Opcion elegida: ");
             scanf("%d", &opcion);
 
@@ -132,21 +133,25 @@ void menuConcesionaria() {
                     break;
                 case 9:
                     system("cls");
-                    verVenta(obtenerVentaDeArchivo(ventas));
+                    verListadoVentas(ventas);
                     break;
                 case 10:
                     system("cls");
-                    verGananciaPeriodo(ventas);
+                    verVenta(obtenerVentaDeArchivo(ventas));
                     break;
                 case 11:
                     system("cls");
-                    verVentaMasFavorable(ventas);
+                    verGananciaPeriodo(ventas);
                     break;
                 case 12:
                     system("cls");
-                    verArregloDeAutos(obtenerAutosMenoresADiezAnios(autos,personas),cantAutosMenoresADiezAnios(autos));
+                    verVentaMasFavorable(ventas);
                     break;
                 case 13:
+                    system("cls");
+                    verArregloDeAutos(obtenerAutosMenoresADiezAnios(autos,personas),cantAutosMenoresADiezAnios(autos));
+                    break;
+                case 14:
                     break;
                 default:
                     printf("Elija una opcion valida\n");

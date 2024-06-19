@@ -16,6 +16,7 @@ int dniVendedor;
 
 void agregarVenta(FILE *ventas,FILE *autos, FILE *personas);
 void verVenta(Venta venta);
+void verListadoVentas(FILE *ventas);
 Venta obtenerVentaDeArchivo(FILE *ventas);
 void verMatrizGananciaAnio(FILE *ventas);
 void verVentaMasFavorable(FILE *ventas);
